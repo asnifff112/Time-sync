@@ -4,15 +4,15 @@
    Root Theme Variables
    ========================= */
 :root {
-  /* Brand Colors */
+
   --midnight-blue: #1C2E4A;
   --buttercream: #D1CFC9;
 
-  /* Base Colors */
+
   --background: var(--buttercream);
   --foreground: #000000;
 
-  /* UI Helpers */
+ 
   --border-color: rgba(28, 46, 74, 0.15);
 }
 
