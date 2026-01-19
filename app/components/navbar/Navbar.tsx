@@ -12,7 +12,7 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 z-50 w-full border-b border-border bg-midnight/90 backdrop-blur">
       <div className="relative mx-auto flex h-16 max-w-7xl items-center px-6">
 
-        {/* LOGO – FIXED LEFT */}
+        {/* LOGO – ALWAYS FIXED */}
         <Link
           href="/"
           className="z-10 text-xl font-semibold text-buttercream"
@@ -20,12 +20,12 @@ export default function Navbar() {
           Time<span className="text-white">Sync</span>
         </Link>
 
-        {/* LEFT NAV (from center → left) */}
+        {/* LEFT NAV (CENTER → LEFT) */}
         <div
           className={`absolute left-1/2 top-1/2 flex -translate-y-1/2 items-center gap-8 text-sm text-buttercream transition-all duration-500 ${
             open
-              ? "-translate-x-[260px] opacity-100"
-              : "-translate-x-1/2 opacity-0"
+              ? "-translate-x-[320px] opacity-100 pointer-events-auto"
+              : "-translate-x-1/2 opacity-0 pointer-events-none"
           }`}
         >
           <Link href="/" className="hover:text-white transition">
@@ -41,19 +41,19 @@ export default function Navbar() {
 
         {/* CENTER WATCH BUTTON */}
         <button
-          onClick={() => setOpen(!open)}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-buttercream/40 bg-midnight p-3 text-buttercream hover:bg-buttercream hover:text-midnight transition"
+          onClick={() => setOpen((prev) => !prev)}
+          className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full border border-buttercream/40 bg-midnight p-3 text-buttercream hover:bg-buttercream hover:text-midnight transition"
           aria-label="Toggle navigation"
         >
           <Watch className="h-6 w-6" />
         </button>
 
-        {/* RIGHT NAV (from center → right) */}
+        {/* RIGHT NAV (CENTER → RIGHT) */}
         <div
           className={`absolute left-1/2 top-1/2 flex -translate-y-1/2 items-center gap-8 text-sm text-buttercream transition-all duration-500 ${
             open
-              ? "translate-x-[260px] opacity-100"
-              : "-translate-x-1/2 opacity-0"
+              ? "translate-x-[140px] opacity-100 pointer-events-auto"
+              : "-translate-x-1/2 opacity-0 pointer-events-none"
           }`}
         >
           <Link href="/cart" className="hover:text-white transition">
