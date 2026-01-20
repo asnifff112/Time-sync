@@ -1,19 +1,25 @@
-import "./globals.css";
-import Navbar from "@/app/components/navbar/Navbar";
-import Footer from "@/app/components/footer/Footer";
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import Lenis from '@/app/components/Lenis' // Smooth scroll like Lando
+import Navbar from './components/navbar/Navbar'
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata: Metadata = {
+  title: 'Watch Store - Premium Timepieces',
+  description: 'E-commerce for luxury watches with dynamic experiences.',
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className={inter.className}>
         <Navbar />
-        <main className="pt-16">{children}</main>
-        <Footer />
+        <Lenis>
+          {children}
+        </Lenis>
       </body>
     </html>
-  );
+  )
 }

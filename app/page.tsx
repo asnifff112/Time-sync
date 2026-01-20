@@ -1,17 +1,13 @@
-import HeroSection from "@/app/components/home/HeroSection";
-import BrandSection from "@/app/components/home/BrandSection";
-import FeaturedSection from "@/app/components/home/FeaturedSection";
-import CraftSection from "@/app/components/home/CraftSection";
-import CTASection from "@/app/components/home/CTASection";
+import HeroSection from '@/app/components/home/HeroSection'
+import GallerySection from '@/app/components/home/GallerySection'
+// Import CTASection, ScrollWatcher, StorySection similarly
 
-export default function HomePage() {
+export default function Home() {
   return (
     <>
       <HeroSection />
-      <BrandSection />
-      <FeaturedSection />
-      <CraftSection />
-      <CTASection />
+      <GallerySection />
+      {/* Add CTAButtons, ScrollWatcher for pinning, StorySection with text reveals */}
     </>
-  );
+  )
 }

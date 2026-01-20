@@ -13,12 +13,12 @@ export default function ScrollWatchSection() {
   useEffect(() => {
     ScrollTrigger.create({
       trigger: sectionRef.current,
-      start: "top top",
-      end: "bottom top",
+      start: "top center",
+      end: "bottom center",
       scrub: true,
       onUpdate: (self) => {
-        // you can connect this to Three.js rotation later
-        // self.progress = scroll control value
+        // later connect this progress to watch rotation
+        // self.progress = 0 → 1
       },
     });
   }, []);
@@ -28,7 +28,7 @@ export default function ScrollWatchSection() {
       ref={sectionRef}
       className="min-h-screen flex items-center justify-center"
     >
-      <div className="h-[480px] w-[480px] rounded-full border border-white/10">
+      <div className="h-[520px] w-[520px] rounded-full border border-white/10 bg-white/5">
         <HeroScene />
       </div>
     </section>
