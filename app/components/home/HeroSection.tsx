@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import HeroScene from "@/app/components/three/HeroScene";
-
+import RotatingText from "@/app/components/ui/RotatingText";
 
 export default function HeroSection() {
   const textRef = useRef<HTMLDivElement>(null);
@@ -11,8 +11,8 @@ export default function HeroSection() {
   useEffect(() => {
     gsap.fromTo(
       textRef.current,
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1.1, ease: "power3.out" }
     );
   }, []);
 
@@ -30,20 +30,42 @@ export default function HeroSection() {
         <source src="/rolexx.mp4" type="video/mp4" />
       </video>
 
-      {/* 🌑 DARK OVERLAY (FADE CONTROL) */}
-      <div className="absolute inset-0 bg-gradient-to-b from-midnight/50 via-midnight/60 to-midnight/70" />
-
+      {/* 🌑 GRADIENT OVERLAY */}
+      <div className="absolute inset-0 bg-gradient-to-b from-midnight/45 via-midnight/55 to-midnight/65" />
 
       {/* CONTENT */}
       <div className="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-2">
 
-        {/* TEXT */}
+        {/* LEFT – HERO TEXT */}
         <div ref={textRef}>
-          <h1 className="text-4xl font-semibold text-white md:text-5xl">
-            Time, Perfected.
+          <h1 className="flex flex-wrap items-center gap-3 text-4xl font-semibold text-white md:text-5xl leading-tight">
+
+            <span>Time,</span>
+
+            <RotatingText
+              texts={[
+                "Perfected.",
+                "Crafted.",
+                "Measured.",
+                "Remembered."
+              ]}
+              mainClassName="text-buttercream"
+              staggerFrom="center"
+              staggerDuration={0.01}
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              exit={{ y: "-100%", opacity: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 180,
+                damping: 26,
+                mass: 0.8,
+              }}
+              rotationInterval={2800}
+            />
           </h1>
 
-          <p className="mt-6 max-w-md text-buttercream/80">
+          <p className="mt-6 max-w-md text-buttercream/75">
             Premium watches engineered with precision and timeless design.
           </p>
 
@@ -52,7 +74,7 @@ export default function HeroSection() {
           </button>
         </div>
 
-       
+      
 
       </div>
     </section>

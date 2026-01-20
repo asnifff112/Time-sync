@@ -1,4 +1,4 @@
-import ProductCard from "@/app/products/ProductCard";
+import ProductCard from "@/app/components/products/ProductCard";
 
 const mockProducts = [
   { id: 1, name: "TimeSync Classic", price: "₹12,999" },
