@@ -1,14 +1,22 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Watch } from "lucide-react";
 import gsap from "gsap";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const isLoggedIn = false;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const watchRef = useRef<SVGSVGElement | null>(null);
+
+  // 🔐 CHECK LOGIN STATUS
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const user = localStorage.getItem("user");
+      setIsLoggedIn(!!user);
+    }
+  }, []);
 
   const handleToggle = () => {
     setOpen((prev) => !prev);
@@ -35,8 +43,6 @@ export default function Navbar() {
           text-[#E5E7EB]
         "
       >
-        {/* LOGO */}
-       
         {/* LEFT NAV */}
         <div
           className={`absolute left-1/2 top-1/2 flex -translate-y-1/2 items-center gap-8 text-sm transition-all duration-500 ${
@@ -100,7 +106,10 @@ export default function Navbar() {
           ))}
 
           {isLoggedIn ? (
-            <Link href="/profile" className="hover:text-white transition">
+            <Link
+              href="/profile"
+              className="hover:text-white transition"
+            >
               Profile
             </Link>
           ) : (
@@ -123,5 +132,3 @@ export default function Navbar() {
     </header>
   );
 }
-
-
