@@ -1,12 +1,12 @@
 import HeroSection from '@/app/components/home/HeroSection'
-import GallerySection from '@/app/components/home/GallerySection'
+import MechanicsOfTime from '@/app/components/home/MechanicsOfTime'
 // Import CTASection, ScrollWatcher, StorySection similarly
 
 export default function Home() {
   return (
     <>
       <HeroSection />
-      <GallerySection />
+      <MechanicsOfTime />
       {/* Add CTAButtons, ScrollWatcher for pinning, StorySection with text reveals */}
     </>
   )
