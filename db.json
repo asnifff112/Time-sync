@@ -1,6 +1,13 @@
 {
   "products": [],
-  "users": [],
+  "users": [
+    {
+      "id": "444e",
+      "name": "asnif",
+      "email": "thriftrobe@gmail.com",
+      "password": "1234"
+    }
+  ],
   "cart": [],
   "wishlist": [],
   "orders": []
