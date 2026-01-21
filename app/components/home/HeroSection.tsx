@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import TextType from "@/effects/TextType"; 
+import TextType from "@/app/effects/TextType"; 
 
 export default function HeroSection() {
   const titleRef = useRef<HTMLHeadingElement>(null);
