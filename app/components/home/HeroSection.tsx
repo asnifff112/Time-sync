@@ -24,11 +24,12 @@ export default function HeroSection() {
         {/* 🔥 TYPING TEXT (ABOVE TIMESYNC) */}
         <div className="mb-6 text-sm md:text-base text-[#9CA3AF] tracking-widest uppercase">
           <TextType
-            text={[
-              "Precision engineered",
-              "Designed for time",
-              "Built for performance",
-            ]}
+           text={[
+  "Time is measured.",
+  "Time is crafted.",
+  "Time is remembered.",
+]}
+
             typingSpeed={75}
             deletingSpeed={50}
             pauseDuration={1500}
