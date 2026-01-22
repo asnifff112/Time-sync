@@ -1,34 +1,31 @@
-type WishlistItemType = {
-  id: number;
-  name: string;
-  price: number;
-};
+"use client";
+import { useWishlistStore } from "@/app/store/wishlistStore";
+import { useCartStore } from "@/app/store/cartStore";
+import toast from "react-hot-toast";
 
-export default function WishlistItem({
-  item,
-}: {
-  item: WishlistItemType;
-}) {
+export default function WishlistItem({ product }: { product: any }) {
+  const removeFromWishlist = useWishlistStore((state: any) => state.removeFromWishlist);
+  const addItem = useCartStore((state: any) => state.addItem);
+
+  const handleMoveToCart = () => {
+    addItem(product);
+    removeFromWishlist(product.id);
+    toast.success("Moved to cart! 🛒");
+  };
+
   return (
-    <div className="rounded-lg border border-border bg-white p-6 transition hover:shadow-md">
+    <div className="group relative bg-[#0B1220] rounded-[2rem] p-6 border border-white/5 hover:border-cyan-500/30 transition-all">
+      <div className="aspect-square mb-6 overflow-hidden rounded-xl">
+        <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+      </div>
+      <h3 className="text-lg font-medium mb-1">{product.name}</h3>
+      <p className="text-yellow-200 text-sm mb-6">₹{product.price.toLocaleString()}</p>
       
-      {/* Image placeholder */}
-      <div className="mb-6 h-44 rounded-md bg-gray-100" />
-
-      <h3 className="text-sm font-medium text-midnight">
-        {item.name}
-      </h3>
-
-      <p className="mt-1 text-sm text-midnight/70">
-        ₹{item.price.toLocaleString()}
-      </p>
-
-      <div className="mt-6 flex gap-4">
-        <button className="flex-1 rounded-full bg-midnight py-2 text-sm font-medium text-buttercream hover:opacity-90 transition">
-          Add to Cart
+      <div className="flex flex-col gap-2">
+        <button onClick={handleMoveToCart} className="w-full py-3 bg-white text-black text-[10px] font-bold uppercase rounded-xl hover:bg-cyan-400 transition">
+          Move to Cart
         </button>
-
-        <button className="flex-1 rounded-full border border-border py-2 text-sm text-midnight hover:bg-gray-100 transition">
+        <button onClick={() => removeFromWishlist(product.id)} className="w-full py-3 bg-white/5 text-white/40 text-[10px] font-bold uppercase rounded-xl hover:text-red-400 transition">
           Remove
         </button>
       </div>

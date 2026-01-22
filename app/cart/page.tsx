@@ -52,9 +52,11 @@ export default function CartPage() {
                             </span>
                         </div>
 
-                        <button className="mt-8 w-full rounded-full bg-white py-4 text-black font-medium transition hover:scale-[1.02]">
-                            Proceed to Checkout
-                        </button>
+                        <Link href="/checkout" className="block w-full">
+  <button className="mt-8 w-full rounded-full bg-white py-4 text-black font-medium transition hover:scale-[1.02]">
+    Proceed to Checkout
+  </button>
+</Link>
                     </>
                 )}
             </div>
