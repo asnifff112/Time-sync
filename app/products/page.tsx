@@ -1,15 +1,17 @@
+// app/products/page.tsx
 import ProductCard from "@/app/components/products/ProductCard";
-import { api } from "@/app/lib/api";
+import { productApi } from "@/app/lib/product.api";
 
 export default async function ProductsPage() {
-  // ✅ correct API call
-  const products = await api.product.getAllProducts();
+  // 1. Fetch data
+  const products = await productApi.getAllProducts();
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-24 text-white">
-      <h1 className="mb-8 text-3xl font-bold">Our Watches</h1>
+      <h1 className="mb-10 text-3xl font-bold">Our Watches</h1>
 
-      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+      {/* 2. Render Grid */}
+      <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
         {products.map((product) => (
           <ProductCard
             key={product.id}

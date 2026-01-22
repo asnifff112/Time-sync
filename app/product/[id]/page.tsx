@@ -1,33 +1,40 @@
+// app/product/[id]/page.tsx
 import { notFound } from "next/navigation";
-import { getProductById } from "@/app/lib/product.api";
-
-
+import { productApi } from "@/app/lib/product.api";
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>; 
 }
 
-export default function ProductDetailsPage({ params }: Props) {
-  const product = getProductById(params.id);
+export default async function ProductDetailsPage({ params }: Props) {
+  
+  const { id } = await params;
 
-  if (!product) return notFound();
+  
+  const product = await productApi.getProductById(id);
+
+  if (!product) {
+    return notFound();
+  }
 
   return (
     <section className="mx-auto max-w-6xl px-6 py-20 text-white">
       <div className="grid gap-12 md:grid-cols-2">
 
         {/* IMAGE */}
-        <img
-          src={product.image}
-          alt={product.name}
-          className="rounded-xl border border-white/10"
-        />
+        <div className="overflow-hidden rounded-xl border border-white/10">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="h-full w-full object-cover"
+          />
+        </div>
 
         {/* DETAILS */}
         <div>
           <h1 className="text-4xl font-semibold">{product.name}</h1>
 
-          <p className="mt-4 text-xl text-buttercream">
+          <p className="mt-4 text-2xl text-yellow-200">
             ₹{product.price.toLocaleString("en-IN")}
           </p>
 
@@ -47,12 +54,16 @@ export default function ProductDetailsPage({ params }: Props) {
             ))}
           </div>
 
-          {/* ACTION */}
-          <button className="mt-10 rounded-full bg-buttercream px-8 py-3 text-midnight hover:opacity-90 transition">
-            Add to Cart
-          </button>
+          {/* ACTIONS */}
+          <div className="mt-10 flex gap-4">
+            <button className="rounded-full bg-yellow-200 px-8 py-3 text-black font-bold">
+              Add to Cart
+            </button>
+            <button className="rounded-full border border-white/30 px-8 py-3">
+              Add to Wishlist
+            </button>
+          </div>
         </div>
-
       </div>
     </section>
   );

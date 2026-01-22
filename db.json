@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "id": "p1",
+      "id": "1",
       "name": "TimeSync Classic",
       "price": 12999,
       "image": "/products/watch1.jpg",
@@ -11,7 +11,7 @@
       "stock": 15
     },
     {
-      "id": "p2",
+      "id": "2",
       "name": "TimeSync Pro",
       "price": 18999,
       "image": "/products/watch2.jpg",
@@ -21,7 +21,7 @@
       "stock": 10
     },
     {
-      "id": "p3",
+      "id": "3",
       "name": "TimeSync Elite",
       "price": 24999,
       "image": "/products/watch3.jpg",
