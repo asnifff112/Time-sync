@@ -41,7 +41,6 @@
       "stock": 12
     }
   ],
-
   "users": [
     {
       "id": "444e",
@@ -50,8 +49,18 @@
       "password": "1234"
     }
   ],
-
-  "cart": [],
+  "cart": [
+    {
+      "id": "6fa1",
+      "productId": "2",
+      "quantity": 1
+    },
+    {
+      "id": "ab28",
+      "productId": "2",
+      "quantity": 1
+    }
+  ],
   "wishlist": [],
   "orders": [],
   "uri": "scene.bin"
