@@ -1,5 +1,47 @@
 {
-  "products": [],
+  "products": [
+    {
+      "id": "p1",
+      "name": "TimeSync Classic",
+      "price": 12999,
+      "image": "/products/watch1.jpg",
+      "description": "Minimal classic analog watch suitable for daily wear.",
+      "brand": "TimeSync",
+      "category": "Watch",
+      "stock": 15
+    },
+    {
+      "id": "p2",
+      "name": "TimeSync Pro",
+      "price": 18999,
+      "image": "/products/watch2.jpg",
+      "description": "Professional smartwatch with fitness tracking and notifications.",
+      "brand": "TimeSync",
+      "category": "Smart Watch",
+      "stock": 10
+    },
+    {
+      "id": "p3",
+      "name": "TimeSync Elite",
+      "price": 24999,
+      "image": "/products/watch3.jpg",
+      "description": "Luxury elite edition watch with premium metal finish.",
+      "brand": "TimeSync",
+      "category": "Luxury Watch",
+      "stock": 5
+    },
+    {
+      "id": "p4",
+      "name": "TimeSync Sport",
+      "price": 15999,
+      "image": "/images/watch4.jpg",
+      "description": "Sport watch with water resistance and rugged design.",
+      "brand": "TimeSync",
+      "category": "Sport Watch",
+      "stock": 12
+    }
+  ],
+
   "users": [
     {
       "id": "444e",
@@ -8,9 +50,9 @@
       "password": "1234"
     }
   ],
+
   "cart": [],
   "wishlist": [],
   "orders": [],
   "uri": "scene.bin"
-
 }

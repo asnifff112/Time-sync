@@ -1,144 +1,59 @@
-"use client";
+import { notFound } from "next/navigation";
+import { getProductById } from "@/app/lib/product.api";
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import ModelViewer from "@/app/components/three/ModelViewer";
-import { getProductBySlug } from "@/app/lib/product.api";
 
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  modelUrl: string;
+
+interface Props {
+  params: { id: string };
 }
 
-export default function ProductPage() {
-  const { id } = useParams();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
+export default function ProductDetailsPage({ params }: Props) {
+  const product = getProductById(params.id);
 
-  useEffect(() => {
-  const productId = Array.isArray(id) ? id[0] : id;
-  if (!productId) return;
-
-  setLoading(true);
-
-  Promise.resolve(getProductBySlug(productId))
-    .then((data) => {
-      if (data) {
-        setProduct({ ...data, modelUrl: "" } as Product);
-      } else {
-        setProduct(null);
-      }
-    })
-    .catch(() => {
-      setProduct(null);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-}, [id]);
-
-
-  if (loading) {
-    return (
-      <main className="min-h-screen flex items-center justify-center bg-[#020617] text-white">
-        Loading product…
-      </main>
-    );
-  }
-
-  if (!product) {
-    return (
-      <main className="min-h-screen flex items-center justify-center bg-[#020617] text-white">
-        Product not found
-      </main>
-    );
-  }
+  if (!product) return notFound();
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#0B1220] to-[#020617] text-white">
-      <div className="mx-auto max-w-7xl px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+    <section className="mx-auto max-w-6xl px-6 py-20 text-white">
+      <div className="grid gap-12 md:grid-cols-2">
 
-        {/* LEFT – 3D WATCH */}
-        <div className="flex justify-center">
-          <div className="rounded-full border border-white/10 bg-white/5 p-8 shadow-[0_0_80px_rgba(255,255,255,0.08)]">
-            <ModelViewer
-              url={product.modelUrl}
-              autoRotate
-              autoRotateSpeed={0.3}
-            />
-          </div>
-        </div>
+        {/* IMAGE */}
+        <img
+          src={product.image}
+          alt={product.name}
+          className="rounded-xl border border-white/10"
+        />
 
-        {/* RIGHT – DETAILS */}
+        {/* DETAILS */}
         <div>
-          <p className="text-sm tracking-widest text-white/60 mb-3">
-            TIME SYNC COLLECTION
+          <h1 className="text-4xl font-semibold">{product.name}</h1>
+
+          <p className="mt-4 text-xl text-buttercream">
+            ₹{product.price.toLocaleString("en-IN")}
           </p>
 
-          <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
-            {product.name}
-          </h1>
-
-          <p className="mt-6 max-w-md text-white/70 leading-relaxed">
+          <p className="mt-6 text-white/70">
             {product.description}
           </p>
 
-          {/* FEATURES */}
-          <ul className="mt-8 space-y-3 text-white/70">
-            <li>• Automatic Mechanical Movement</li>
-            <li>• Sapphire Crystal Glass</li>
-            <li>• 42 Hour Power Reserve</li>
-            <li>• Water Resistant – 50m</li>
-          </ul>
-
-          {/* PRICE + ACTIONS */}
-          <div className="mt-10 flex items-center gap-6">
-            <span className="text-3xl font-semibold">
-              ₹{product.price.toLocaleString()}
-            </span>
-
-            <button
-              className="rounded-full bg-white px-8 py-3 text-sm font-medium text-black transition hover:scale-105"
-              onClick={() => {
-                const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-                cart.push({
-                  id: product.id,
-                  name: product.name,
-                  price: product.price,
-                  qty: 1,
-                });
-                localStorage.setItem("cart", JSON.stringify(cart));
-                alert("Added to cart");
-              }}
-            >
-              Add to Cart
-            </button>
+          {/* COLORS */}
+          <div className="mt-6 flex gap-3">
+            {product.colors.map((color) => (
+              <span
+                key={color}
+                className="rounded-full border border-white/20 px-4 py-1 text-sm"
+              >
+                {color}
+              </span>
+            ))}
           </div>
 
-          {/* WISHLIST */}
-          <button
-            className="mt-6 text-sm text-white/60 hover:text-white transition"
-            onClick={() => {
-              const wishlist = JSON.parse(
-                localStorage.getItem("wishlist") || "[]"
-              );
-              wishlist.push({
-                id: product.id,
-                name: product.name,
-                price: product.price,
-              });
-              localStorage.setItem("wishlist", JSON.stringify(wishlist));
-              alert("Added to wishlist");
-            }}
-          >
-            ♡ Add to Wishlist
+          {/* ACTION */}
+          <button className="mt-10 rounded-full bg-buttercream px-8 py-3 text-midnight hover:opacity-90 transition">
+            Add to Cart
           </button>
-
         </div>
+
       </div>
-    </main>
+    </section>
   );
 }

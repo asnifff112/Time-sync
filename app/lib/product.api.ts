@@ -1,5 +1,3 @@
-// lib/product.api.ts
-
 export interface Product {
   id: string;
   name: string;
@@ -9,31 +7,25 @@ export interface Product {
   image: string;
 }
 
-const PRODUCTS: Product[] = [
+const products: Product[] = [
   {
-    id: "chronox-black",
-    name: "Chronox Black",
+    id: "timesync-black",
+    name: "TimeSync Black",
     price: 24999,
-    description:
-      "Precision engineered automatic watch with sapphire crystal and stainless steel body.",
-    colors: ["Black", "Silver", "Gold"],
-    image: "/images/watch-black.png",
-  },
-  {
-    id: "chronox-blue",
-    name: "Chronox Blue",
-    price: 26999,
-    description:
-      "Elegant blue dial watch built for performance and daily luxury.",
-    colors: ["Blue", "Silver"],
-    image: "/images/watch-blue.png",
+    description: "Premium automatic watch",
+    colors: ["Black", "Silver"],
+    image: "/images/watch-black.jpg",
   },
 ];
 
-export function getProducts(): Product[] {
-  return PRODUCTS;
+export function getAllProducts() {
+  return products;
 }
 
-export function getProductBySlug(id: string): Product | undefined {
-  return PRODUCTS.find((p) => p.id === id);
+export function getProductById(id: string) {
+  return products.find((p) => p.id === id);
 }
+export function getAll() {
+  throw new Error("Function not implemented.");
+}
+

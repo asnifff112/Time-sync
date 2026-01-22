@@ -1,25 +1,30 @@
-import { Product } from "./ProductsGrid";
-
-type ProductCardProps = {
-  product: Product;
+import Link from "next/link";
+// Define Product type here if '@/lib/types' does not exist
+type Product = {
+  id: string;
+  name: string;
+  image: string;
+  price: number;
 };
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product }: { product: Product }) {
   return (
-    <div className="rounded-xl border bg-white p-5 shadow-sm hover:shadow-md transition">
-      <h3 className="text-lg font-semibold">{product.name}</h3>
+    <Link href={`/product/${product.id}`}>
+      <div className="cursor-pointer rounded-xl border border-white/10 p-4 transition hover:border-white/30">
+        <img
+          src={product.image}
+          alt={product.name}
+          className="mb-4 rounded-lg"
+        />
 
-      <p className="mt-2 text-gray-600 text-sm">
-        {product.description}
-      </p>
+        <h3 className="text-lg font-semibold text-white">
+          {product.name}
+        </h3>
 
-      <p className="mt-4 text-xl font-bold text-black">
-        {product.price}
-      </p>
-
-      <button className="mt-5 w-full rounded-lg bg-black py-2 text-white hover:bg-gray-800">
-        View Details
-      </button>
-    </div>
+        <p className="text-white/70">
+          ₹{product.price.toLocaleString("en-IN")}
+        </p>
+      </div>
+    </Link>
   );
 }

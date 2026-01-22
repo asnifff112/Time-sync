@@ -1,31 +1,58 @@
-import { api } from "./api";
+const BASE_URL = "http://localhost:5000";
 
-export interface LoginPayload {
-  email: string;
-  password: string;
-}
+export const authApi = {
+  /* ---------------- REGISTER ---------------- */
+  register: async (user: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
+    // check user already exists
+    const check = await fetch(
+      `${BASE_URL}/users?email=${user.email}`
+    );
+    const existing = await check.json();
 
-export interface RegisterPayload {
-  name: string;
-  email: string;
-  password: string;
-}
+    if (existing.length > 0) {
+      throw new Error("User already exists");
+    }
 
-export const login = (data: LoginPayload) =>
-  api<{ token: string; user: any }>("/login", {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
+    const res = await fetch(`${BASE_URL}/users`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    });
 
-export const register = (data: RegisterPayload) =>
-  api("/register", {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
+    return res.json();
+  },
 
-export const getProfile = () =>
-  api("/profile", { auth: true });
+  /* ---------------- LOGIN ---------------- */
+  login: async (email: string, password: string) => {
+    const res = await fetch(
+      `${BASE_URL}/users?email=${email}&password=${password}`
+    );
 
-export const logout = () => {
-  localStorage.removeItem("token");
+    const data = await res.json();
+
+    if (data.length === 0) {
+      throw new Error("Invalid credentials");
+    }
+
+    // store user (simple auth)
+    localStorage.setItem("user", JSON.stringify(data[0]));
+
+    return data[0];
+  },
+
+  /* ---------------- CURRENT USER ---------------- */
+  getCurrentUser: () => {
+    if (typeof window === "undefined") return null;
+    const user = localStorage.getItem("user");
+    return user ? JSON.parse(user) : null;
+  },
+
+  /* ---------------- LOGOUT ---------------- */
+  logout: () => {
+    localStorage.removeItem("user");
+  },
 };

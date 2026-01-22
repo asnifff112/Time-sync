@@ -1,23 +1,12 @@
-import { api } from "./api";
+const BASE_URL = "http://localhost:5000";
 
-export interface CartItem {
-  id: string;
-  productId: string;
-  qty: number;
-}
-
-export const getCart = () =>
-  api<CartItem[]>("/cart", { auth: true });
-
-export const addToCart = (item: CartItem) =>
-  api("/cart", {
-    method: "POST",
-    body: JSON.stringify(item),
-    auth: true,
-  });
-
-export const removeFromCart = (id: string) =>
-  api(`/cart/${id}`, {
-    method: "DELETE",
-    auth: true,
-  });
+export const cartApi = {
+  addToCart: async (item: any) => {
+    const res = await fetch(`${BASE_URL}/cart`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(item),
+    });
+    return res.json();
+  },
+};
