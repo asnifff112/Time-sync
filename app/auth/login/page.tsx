@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { loginUser } from "@/lib/auth";
 import Link from "next/link";
-import { useAuth } from "@/app/context/authcontext"; // 1. useAuth ഇമ്പോർട്ട് ചെയ്യുക
+import { useAuth } from "@/app/context/authcontext"; 
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login } = useAuth(); // 2. Context-ൽ നിന്നുള്ള login ഫങ്ക്ഷൻ എടുക്കുക
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -20,12 +20,10 @@ export default function LoginPage() {
     try {
       const user = await loginUser(email, password);
       
-      // 3. നേരിട്ട് localStorage ഉപയോഗിക്കുന്നതിന് പകരം Context ഫങ്ക്ഷൻ വിളിക്കുക
-      // ഇത് ഒരേസമയം localStorage-ൽ സേവ് ചെയ്യുകയും NavBar-നെ അറിയിക്കുകയും ചെയ്യും
+      
       login(user); 
       
-      // router.push ഇപ്പോൾ AuthContext-നുള്ളിൽ ഉള്ളതുകൊണ്ട് ഇവിടെ വേണമെന്നില്ല, 
-      // എങ്കിലും സുരക്ഷയ്ക്ക് വെക്കാം.
+     
       router.push("/");
     } catch {
       setError("Invalid email or password");
