@@ -30,7 +30,7 @@ export default function Navbar() {
     }
   };
 
-  // മൗണ്ട് ആവുന്നത് വരെ ഒന്നും കാണിക്കില്ല (Hydration mismatch ഒഴിവാക്കാൻ)
+  
   if (!mounted) return null;
 
   return (

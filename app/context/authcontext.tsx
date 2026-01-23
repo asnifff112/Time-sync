@@ -35,12 +35,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   // --- UPDATED LOGOUT FUNCTION ---
   const logout = useCallback(() => {
-    // 1. ഡാറ്റ ക്ലിയർ ചെയ്യുന്നു
+   
     localStorage.removeItem("user");
     setUser(null);
     
-    // 2. ബ്ലാങ്ക് സ്ക്രീൻ ഒഴിവാക്കാൻ വിൻഡോ ലൊക്കേഷൻ തന്നെ മാറ്റുന്നു
-    // ഇത് ആപ്പിനെ ഒന്ന് ഫ്രഷ് ആയി ഹോം പേജിൽ എത്തിക്കും
+    
     window.location.href = "/";
   }, []);
 

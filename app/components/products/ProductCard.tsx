@@ -60,10 +60,10 @@ export default function ProductCard({ product }: { product: any }) {
         {/* Product Image */}
         <div className="h-full w-full p-8 flex items-center justify-center">
           <img 
-            // product.image-ൽ നിങ്ങളുടെ പാത്ത് (/products/watch1.jpg) കറക്റ്റ് ആയി വരും
+           
             src={product.image}
             alt={product.name} 
-            // ഇമേജ് ലോഡ് ആയില്ലെങ്കിൽ കാണിക്കാൻ ഒരുonerror ഫങ്ക്ഷൻ (Optional)
+           
             onError={(e: any) => { e.target.src = "/products/watch1.jpg" }}
             className="max-h-full max-w-full object-contain opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 ease-out" 
           />
