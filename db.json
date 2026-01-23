@@ -81,7 +81,12 @@
       "quantity": 1
     }
   ],
-  "wishlist": [],
+  "wishlist": [
+    {
+      "id": "2434",
+      "productId": "2"
+    }
+  ],
   "orders": [],
   "uri": "scene.bin"
 }
