@@ -31,23 +31,23 @@ export const useWishlistStore = create<WishlistState>()(
         const isExist = currentWishlist.some((item) => item.id === product.id);
 
         if (isExist) {
-          // ലിസ്റ്റിൽ ഉണ്ടെങ്കിൽ റിമൂവ് ചെയ്യുക
+          
           set({ 
             wishlist: currentWishlist.filter((item) => item.id !== product.id) 
           });
         } else {
-          // ലിസ്റ്റിൽ ഇല്ലെങ്കിൽ ആഡ് ചെയ്യുക
+         
           set({ 
             wishlist: [...currentWishlist, product] 
           });
         }
       },
 
-      // ഫുൾ വിഷ്‌ലിസ്റ്റ് ഡിലീറ്റ് ചെയ്യാൻ
+      
       clearWishlist: () => set({ wishlist: [] }),
     }),
     { 
-      name: 'wishlist-storage' // ലോക്കൽ സ്റ്റോറേജിലെ പേര്
+      name: 'wishlist-storage'
     }
   )
 );
