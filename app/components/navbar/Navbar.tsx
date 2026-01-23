@@ -4,17 +4,17 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Watch, UserCircle } from "lucide-react";
 import gsap from "gsap";
-import { useAuth } from "@/app/context/authcontext"; // പാത്ത് ഉറപ്പുവരുത്തുക
+import { useAuth } from "@/app/context/authcontext";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false); // Hydration error ഒഴിവാക്കാൻ
+  const [mounted, setMounted] = useState(false); 
   const watchRef = useRef<SVGSVGElement | null>(null);
   
-  // AuthContext-ൽ നിന്നുള്ള ഡാറ്റയും ലോഡിംഗ് സ്റ്റേറ്റും എടുക്കുന്നു
+  
   const { user, loading } = useAuth(); 
 
-  // ക്ലയന്റ് സൈഡിൽ മാത്രം റെൻഡർ ചെയ്യാൻ
+  
   useEffect(() => {
     setMounted(true);
   }, []);
