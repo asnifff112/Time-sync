@@ -4,9 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { loginUser } from "@/lib/auth";
 import Link from "next/link";
+import { useAuth } from "@/app/context/authcontext"; // 1. useAuth ഇമ്പോർട്ട് ചെയ്യുക
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login } = useAuth(); // 2. Context-ൽ നിന്നുള്ള login ഫങ്ക്ഷൻ എടുക്കുക
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -17,7 +19,13 @@ export default function LoginPage() {
 
     try {
       const user = await loginUser(email, password);
-      localStorage.setItem("user", JSON.stringify(user));
+      
+      // 3. നേരിട്ട് localStorage ഉപയോഗിക്കുന്നതിന് പകരം Context ഫങ്ക്ഷൻ വിളിക്കുക
+      // ഇത് ഒരേസമയം localStorage-ൽ സേവ് ചെയ്യുകയും NavBar-നെ അറിയിക്കുകയും ചെയ്യും
+      login(user); 
+      
+      // router.push ഇപ്പോൾ AuthContext-നുള്ളിൽ ഉള്ളതുകൊണ്ട് ഇവിടെ വേണമെന്നില്ല, 
+      // എങ്കിലും സുരക്ഷയ്ക്ക് വെക്കാം.
       router.push("/");
     } catch {
       setError("Invalid email or password");
@@ -28,37 +36,43 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-[#0F172A] px-4">
       <form
         onSubmit={handleLogin}
-        className="w-full max-w-md rounded-2xl border border-white/10 bg-[rgba(15,23,42,0.85)] backdrop-blur-xl p-8"
+        className="w-full max-w-md rounded-2xl border border-white/10 bg-[rgba(15,23,42,0.85)] backdrop-blur-xl p-8 shadow-2xl"
       >
-        <h1 className="text-2xl text-white text-center">Login</h1>
+        <h1 className="text-2xl font-semibold text-white text-center">Login</h1>
 
         {error && (
-          <p className="mt-3 text-sm text-red-400 text-center">{error}</p>
+          <div className="mt-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
+            <p className="text-sm text-red-400 text-center">{error}</p>
+          </div>
         )}
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="mt-6 w-full bg-transparent border border-white/20 px-4 py-2.5 rounded-lg text-white"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <div className="space-y-4 mt-6">
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            className="w-full bg-white/5 border border-white/10 focus:border-white/30 outline-none px-4 py-3 rounded-xl text-white transition-all"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="mt-4 w-full bg-transparent border border-white/20 px-4 py-2.5 rounded-lg text-white"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            className="w-full bg-white/5 border border-white/10 focus:border-white/30 outline-none px-4 py-3 rounded-xl text-white transition-all"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
-        <button className="mt-6 w-full bg-white text-[#0F172A] py-2.5 rounded-full">
+        <button className="mt-8 w-full bg-white text-[#0F172A] py-3 rounded-full font-bold hover:bg-gray-200 transition-all active:scale-95">
           Login
         </button>
 
-        <p className="mt-4 text-center text-sm text-white/60">
+        <p className="mt-6 text-center text-sm text-white/60">
           No account?{" "}
-          <Link href="/auth/register" className="text-white underline">
+          <Link href="/auth/register" className="text-white hover:underline transition">
             Sign up
           </Link>
         </p>
