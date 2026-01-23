@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import './globals.css'
-import Lenis from '@/app/components/Lenis' 
+import './globals.css' 
 import Navbar from './components/navbar/Navbar'
 import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from '@/app/context/authcontext' 

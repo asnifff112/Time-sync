@@ -3,7 +3,7 @@ import { useCartStore } from "@/app/store/cartStore";
 import Link from "next/link";
 
 export default function CartPage() {
-    // Zustand-ൽ നിന്ന് ഡാറ്റയും ഫങ്ക്ഷനും എടുക്കുന്നു
+    
     const { items, removeItem, getFormattedTotal } = useCartStore();
 
     return (
