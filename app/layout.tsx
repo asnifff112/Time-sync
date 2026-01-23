@@ -4,7 +4,7 @@ import './globals.css'
 import Lenis from '@/app/components/Lenis' 
 import Navbar from './components/navbar/Navbar'
 import { Toaster } from 'react-hot-toast'
-import { AuthProvider } from '@/app/context/authcontext' // AuthProvider ഇമ്പോർട്ട് ചെയ്യുക
+import { AuthProvider } from '@/app/context/authcontext' 
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,28 +15,33 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
-        {/* AuthProvider എല്ലാത്തിനും മുകളിൽ വരണം */}
+        {/* 1. AuthProvider: ഇത് ആപ്പിന് ചുറ്റും ഒരു സുരക്ഷാ കവചം പോലെ നിൽക്കുന്നു */}
         <AuthProvider>
+          
+          {/* 2. Notifications */}
           <Toaster 
             position="bottom-right"
             toastOptions={{
               style: {
-                background: '#333',
+                background: '#0F172A',
                 color: '#fff',
+                border: '1px solid rgba(255,255,255,0.1)'
               },
             }}
           />
           
-          {/* Navbar ഇപ്പോൾ AuthProvider-ന് ഉള്ളിലാണ്, അതുകൊണ്ട് എറർ മാറിക്കൊള്ളും */}
+          {/* 3. Navbar: AuthProvider-ന് ഉള്ളിലായത് കൊണ്ട് user സ്റ്റേറ്റ് ഇവിടെ ലഭിക്കും */}
           <Navbar />
           
+          {/* 4. Smooth Scrolling & Content */}
           <Lenis>
-            <main>
+            <main className="min-h-screen">
               {children}
             </main>
           </Lenis>
+          
         </AuthProvider>
       </body>
     </html>
