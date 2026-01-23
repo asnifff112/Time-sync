@@ -5,18 +5,13 @@ import { useWishlistStore } from "@/app/store/wishlistStore";
 import toast from "react-hot-toast";
 
 export default function ProductCard({ product }: { product: any }) {
-  // Store-ൽ നിന്ന് വിഷ്‌ലിസ്റ്റും ടോഗിൾ ഫങ്ക്ഷനും എടുക്കുന്നു
   const { wishlist, toggleWishlist } = useWishlistStore() as any;
-  
-  // നിലവിൽ ഈ പ്രോഡക്റ്റ് വിഷ്‌ലിസ്റ്റിൽ ഉണ്ടോ എന്ന് നോക്കുന്നു
   const isFavorite = wishlist.some((item: any) => item.id === product.id);
 
   const handleWishlistClick = (e: React.MouseEvent) => {
-    e.preventDefault(); // കാർഡിൽ ക്ലിക്ക് ചെയ്യുമ്പോൾ പ്രോഡക്റ്റ് പേജിലേക്ക് പോകുന്നത് തടയാൻ
-    
+    e.preventDefault(); 
     toggleWishlist(product);
 
-    // യൂസറിന് ടോസ്റ്റ് മെസ്സേജ് കാണിക്കാൻ
     if (!isFavorite) {
       toast.success(`${product.name} saved to wishlist ❤️`, {
         duration: 1500,
@@ -34,8 +29,10 @@ export default function ProductCard({ product }: { product: any }) {
     <Link href={`/product/${product.id}`} className="group block w-full">
       {/* Top Meta Info */}
       <div className="mb-3 flex justify-between items-center px-1">
-        <span className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-medium">Precision</span>
-        <span className="text-[9px] text-cyan-500/60 font-mono">0{product.id}</span>
+        <span className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-medium">
+          {product.brand || "TimeSync"}
+        </span>
+        <span className="text-[9px] text-cyan-500/60 font-mono">#{product.id}</span>
       </div>
 
       {/* Card Body */}
@@ -43,7 +40,7 @@ export default function ProductCard({ product }: { product: any }) {
                       rounded-tr-[3rem] rounded-bl-[3rem] rounded-tl-xl rounded-br-xl
                       group-hover:border-cyan-500/40 group-hover:bg-[#0E1729]">
         
-        {/* Wishlist Heart Icon Button */}
+        {/* Wishlist Heart Icon */}
         <button 
           onClick={handleWishlistClick}
           className="absolute top-5 right-5 z-20 p-2.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 transition-all hover:scale-110 active:scale-90 group/heart"
@@ -61,19 +58,24 @@ export default function ProductCard({ product }: { product: any }) {
         </button>
         
         {/* Product Image */}
-        <img 
-          src={product.image} 
-          alt={product.name} 
-          className="h-full w-full object-cover p-8 opacity-90 group-hover:opacity-100 transition-opacity" 
-        />
+        <div className="h-full w-full p-8 flex items-center justify-center">
+          <img 
+            // product.image-ൽ നിങ്ങളുടെ പാത്ത് (/products/watch1.jpg) കറക്റ്റ് ആയി വരും
+            src={product.image}
+            alt={product.name} 
+            // ഇമേജ് ലോഡ് ആയില്ലെങ്കിൽ കാണിക്കാൻ ഒരുonerror ഫങ്ക്ഷൻ (Optional)
+            onError={(e: any) => { e.target.src = "/products/watch1.jpg" }}
+            className="max-h-full max-w-full object-contain opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 ease-out" 
+          />
+        </div>
 
         {/* Bottom Info */}
         <div className="absolute bottom-5 left-6">
-          <h3 className="text-sm font-medium text-white/80 group-hover:text-cyan-400 transition-colors">
+          <h3 className="text-sm font-medium text-white/80 group-hover:text-cyan-400 transition-colors line-clamp-1">
             {product.name}
           </h3>
           <p className="text-xs text-yellow-200/80 mt-1 font-mono tracking-tighter">
-            ₹{product.price.toLocaleString()}
+            ₹{Number(product.price).toLocaleString()}
           </p>
         </div>
 
