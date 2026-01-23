@@ -1,29 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { useAuth } from "@/app/context/authcontext"; // AuthContext ഇമ്പോർട്ട് ചെയ്തു
-import { updateUserPassword } from "@/lib/auth"; // API ഫങ്ക്ഷൻ ഇമ്പോർട്ട് ചെയ്തു
+import { useAuth } from "@/app/context/authcontext";
+import { updateUserPassword } from "@/lib/auth"; 
 import { toast } from "react-hot-toast";
 import gsap from "gsap";
 
 export default function AccountActions() {
-  const { user, logout } = useAuth(); // Context-ൽ നിന്ന് ലോഗൗട്ടും യൂസറെയും എടുത്തു
+  const { user, logout } = useAuth();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passForm, setPassForm] = useState({ old: "", new: "", confirm: "" });
   const [loading, setLoading] = useState(false);
 
-  // 1. ലോഗൗട്ട് ചെയ്യുമ്പോൾ സ്മൂത്ത് ആനിമേഷൻ
+ 
   const handleLogout = () => {
     gsap.to("body", { 
       opacity: 0, 
       duration: 0.4, 
-      onComplete: () => logout() // Context-ലെ ഫ്രഷ് ലോഗൗട്ട് വിളിക്കുന്നു
+      onComplete: () => logout() 
     });
   };
 
-  // 2. പാസ്‌വേഡ് മാറ്റം ഡാറ്റാബേസിൽ വരുത്തുന്നു
+ 
   const handleChangePassword = async () => {
-    // സിമ്പിൾ വാലിഡേഷൻ
+
     if (!passForm.old || !passForm.new) {
       toast.error("Please fill all fields");
       return;
@@ -42,12 +42,12 @@ export default function AccountActions() {
     setLoading(true);
 
     try {
-      // lib/auth.ts ലെ ഫങ്ക്ഷൻ വഴി DB അപ്‌ഡേറ്റ് ചെയ്യുന്നു
+      
       await updateUserPassword(user.id, passForm.new);
 
       toast.success("Password updated! Logging out...");
       
-      // പാസ്‌വേഡ് മാറിയാൽ വീണ്ടും ലോഗിൻ ചെയ്യിപ്പിക്കുന്നത് സെക്യൂരിറ്റിക്ക് നല്ലതാണ്
+
       setTimeout(() => {
         handleLogout();
       }, 2000);
@@ -73,13 +73,13 @@ export default function AccountActions() {
           </button>
 
           <button
-            onClick={handleLogout} // അപ്‌ഡേറ്റ് ചെയ്ത ലോഗൗട്ട്
+            onClick={handleLogout}
             className="w-full rounded-xl border border-white/20 bg-transparent py-3 text-sm font-medium text-white transition-all hover:bg-white hover:text-black hover:scale-[1.02]"
           >
             Logout
           </button>
           
-          {/* Delete Account code remains same... */}
+          
         </div>
       </section>
 
