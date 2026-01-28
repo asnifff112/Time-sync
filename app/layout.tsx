@@ -8,7 +8,7 @@ import { AuthProvider } from '@/app/context/authcontext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Watch Store - Premium Timepieces',
+  title: 'Time Sync - Premium Timepieces',
   description: 'E-commerce for luxury watches with dynamic experiences.',
 }
 

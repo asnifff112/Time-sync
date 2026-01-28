@@ -96,6 +96,31 @@
       "id": "eb01",
       "productId": "2",
       "quantity": 1
+    },
+    {
+      "id": "0e8d",
+      "productId": "2",
+      "quantity": 1
+    },
+    {
+      "id": "63e1",
+      "productId": "2",
+      "quantity": 1
+    },
+    {
+      "id": "abce",
+      "productId": "2",
+      "quantity": 1
+    },
+    {
+      "id": "be35",
+      "productId": "3",
+      "quantity": 1
+    },
+    {
+      "id": "aaee",
+      "productId": "2",
+      "quantity": 1
     }
   ],
   "wishlist": [

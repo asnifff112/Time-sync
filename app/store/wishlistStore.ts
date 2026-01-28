@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-// Wishlist-ന്റെ കൃത്യമായ സ്ട്രക്ചർ
+
 interface WishlistState {
   wishlist: any[];
   addItem: (product: any) => void;
